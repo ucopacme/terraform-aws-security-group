@@ -16,7 +16,7 @@ _To use this module, add the following call to your code:_
 
 ```tf
 module "sg" {
-  source                 = "git::https://git@github.com/ahmadzaikk/terraform-module-aws-security-group.git//"
+  source                 = "git::https://git@github.com/ucopacme/terraform-module-aws-security-group.git//"
   enabled                = true
   name                   = "sg-name"
   vpc_id                 = "vpc-id"
@@ -92,21 +92,5 @@ _This module has the following outputs:_
 - **_arn_**
 - **_name_**
 
----
-
-### _Usage_
-
-_In order for the variables to be accessed at module level please use the syntax below:_
-
-```tf
-module.<module_name>.<output_variable_name>
-```
 
 
-_The output variable is able to be accessed through terraform state file using the syntax below:_
-
-```tf
-data.terraform_remote_state.<layer_name>.<output_variable_name>
-```
-
----
