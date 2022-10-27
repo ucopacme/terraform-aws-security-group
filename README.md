@@ -4,51 +4,38 @@ _Terraform module for_ **_AWS Security Group_**
 
 ## _General_
 
-_This module may be used to create_ **_Security Group_** _resources in AWS Cloud provider......._
+_This module may be used to create_ **_Security Group_**_
 
 ---
 
-
-## _Prerequisites_
-
-_This module needs **_Terraform 0.12.23_** or newer._
-
-_You can download the latest Terraform version from_ [_here_](https://www.terraform.io/downloads.html).
-
-_This module deploys aws services details are in respective feature branches._
-
----
-
-## _Features_
-
-_Below we are able to check the resources that are being created as part of this module call:_
-
-- **_Security Group_**
-
-
----
 
 ## _Usage_
 
-## _Using this repo_
 
 _To use this module, add the following call to your code:_
 
 ```tf
-module "security_group" {
-  source = "git::https://github.com/nitinda/terraform-module-aws-security-group.git?ref=master"
-
-  name_prefix            = "ec2-sg-"
-  description            = "EC2 Security Group that allows traffic from whitelisted ips"
-  vpc_id                 = var.vpc_id
+module "sg" {
+  source                 = "git::https://git@github.com/ahmadzaikk/terraform-module-aws-security-group.git//"
+  enabled                = true
+  name                   = "sg-name"
+  vpc_id                 = "vpc-id"
   revoke_rules_on_delete = true
   ingress = [
     {
-        from_port   = 0
-        to_port     = 0
-        protocol    = -1
-        description = "Ingress rule that allows traffic from whitelisted ips"
-        cidr_blocks = [ module.network.vpc_cidr ]
+      from_port   = 0
+      to_port     = 0
+      protocol    = -1
+      description = "Ingress rule that allows traffic from whitelisted ips"
+      cidr_blocks = ["129.48.0.0/16", "10.0.0.0/16"]
+    },
+    {
+
+      from_port       = 80
+      to_port         = 80
+      protocol        = "tcp"
+      description     = "Ingress rule that allows traffic from whitelisted ips"
+      security_groups = ["sg-id"]
     }
   ]
   egress = [
@@ -60,50 +47,20 @@ module "security_group" {
       description = "The egress rule allows all ports"
     }
   ]
+
+  tags = {
+    "ucop:application" = "app"
+    "ucop:createdBy"   = "terraform"
+    "ucop:environment" = "env"
+    "ucop:group"       = "group"
+    "ucop:source"      = join("/", ["https://github.com/ucopacme/ucop-terraform-deployments/terraform/chs-dev"])
+    "Name"             = "Name"
+  }
+
 }
 ```
 
 
-```tf
-module "security_group" {
-  source = "git::https://github.com/nitinda/terraform-module-aws-security-group.git?ref=master"
-
-  name                   = "ec2-sg-"
-  description            = "EC2 Security Group that allows traffic from whitelisted ips"
-  vpc_id                 = var.vpc_id
-  revoke_rules_on_delete = true
-  ingress = [
-    {
-        from_port   = 0
-        to_port     = 0
-        protocol    = -1
-        description = "Ingress rule that allows traffic from whitelisted ips"
-        cidr_blocks = [ module.network.vpc_cidr ]
-    }
-  ]
-  egress = [
-    {
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_blocks = ["0.0.0.0/0"]
-      description = "The egress rule allows all ports"
-    }
-  ]
-}
-```
-
-
-```tf
-module "security_group" {
-  source = "git::https://github.com/nitinda/terraform-module-aws-security-group.git?ref=master"
-
-  name                   = "ec2-sg-"
-  description            = "EC2 Security Group that allows traffic from whitelisted ips"
-  vpc_id                 = var.vpc_id
-  revoke_rules_on_delete = true
-}
-```
 ---
 
 ## _Inputs_
