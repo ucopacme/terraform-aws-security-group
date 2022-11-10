@@ -53,7 +53,7 @@ module "sg" {
     "ucop:createdBy"   = "terraform"
     "ucop:environment" = "env"
     "ucop:group"       = "group"
-    "ucop:source"      = join("/", ["https://github.com/ucopacme/ucop-terraform-deployments/terraform/chs-dev"])
+    "ucop:source"      = join("/", ["source code path"])
     "Name"             = "Name"
   }
 
