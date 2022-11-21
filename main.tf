@@ -42,7 +42,7 @@ resource "aws_security_group" "this" {
   revoke_rules_on_delete = var.revoke_rules_on_delete
   vpc_id                 = var.vpc_id
 
-  lifecycle {
-    create_before_destroy = true
-  }
+  #lifecycle {
+   # create_before_destroy = true
+  #}
 }
